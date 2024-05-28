@@ -94,6 +94,7 @@ class _MainScreenState extends State<MainScreen> {
     switch (zip) {
       case "10115":
       case "10997":
+      case "10999":
       case "14195":
         return 'Berlin';
       case "20095":
