@@ -8,16 +8,16 @@ class MainScreen extends StatefulWidget {
 }
 
 class _MainScreenState extends State<MainScreen> {
-  final TextEditingController _zipController = TextEditingController();
-  Future<String>? _cityFuture;
+  final TextEditingController zipController = TextEditingController();
+  Future<String>? cityFuture;
 
   @override
   void initState() {
     super.initState();
     // TODO: initiate controllers
-    _zipController.addListener(() {
+    zipController.addListener(() {
       setState(() {
-        _cityFuture = null;
+        cityFuture = null;
       });
     });
   }
@@ -25,9 +25,6 @@ class _MainScreenState extends State<MainScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Future Builder Task'),
-      ),
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(8.0),
@@ -35,7 +32,7 @@ class _MainScreenState extends State<MainScreen> {
             child: Column(
               children: [
                 TextField(
-                  controller: _zipController,
+                  controller: zipController,
                   decoration: const InputDecoration(
                     border: OutlineInputBorder(),
                     labelText: "Postleitzahl",
@@ -46,14 +43,14 @@ class _MainScreenState extends State<MainScreen> {
                   onPressed: () {
                     // TODO: implementiere Suche
                     setState(() {
-                      _cityFuture = getCityFromZip(_zipController.text);
+                      cityFuture = getCityFromZip(zipController.text);
                     });
                   },
                   child: const Text("Suche"),
                 ),
                 const SizedBox(height: 32),
                 FutureBuilder<String>(
-                  future: _cityFuture,
+                  future: cityFuture,
                   builder: (context, snapshot) {
                     if (snapshot.connectionState == ConnectionState.waiting) {
                       return const CircularProgressIndicator();
@@ -86,7 +83,7 @@ class _MainScreenState extends State<MainScreen> {
   @override
   void dispose() {
     // TODO: dispose controllers
-    _zipController.dispose();
+    zipController.dispose();
     super.dispose();
   }
 
@@ -97,7 +94,6 @@ class _MainScreenState extends State<MainScreen> {
     switch (zip) {
       case "10115":
       case "10997":
-      case "10999":
       case "14195":
         return 'Berlin';
       case "20095":
